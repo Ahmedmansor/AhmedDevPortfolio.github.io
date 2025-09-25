@@ -1,0 +1,358 @@
+/* ======== 1. Reset & Globals ======== */
+
+/* This reset ensures all elements behave consistently across different browsers */
+* {
+    box-sizing: border-box;
+    /* Makes layout sizing more predictable */
+    margin: 0;
+    /* Remove default margins */
+    padding: 0;
+    /* Remove default padding */
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Enables smooth scrolling for anchor links */
+}
+
+/* ======== 2. General Body & Container Styles ======== */
+
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    /* Keeping Cairo for potential Arabic content, adding Montserrat for English */
+    font-family: 'Montserrat', 'Cairo', sans-serif;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    /* Added some subtle styling for the container itself */
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ======== 3. General Link Styles ======== */
+
+/* A consistent style for all links */
+a {
+    color: #03dac6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #03e6b7;
+    /* Slightly brighter hover color */
+}
+
+/* ======== 4. Header & Profile Styles (for index.html, kept for completeness) ======== */
+
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #03dac6;
+    object-fit: cover;
+    object-position: center top;
+}
+
+header h1 {
+    color: #ffffff;
+    margin: 15px 0 5px;
+    direction: ltr;
+    font-size: 2.5em;
+    /* Larger heading */
+}
+
+header h2 {
+    color: #bb86fc;
+    font-weight: 400;
+    direction: ltr;
+    font-size: 1.3em;
+    /* Subtitle size */
+}
+
+.bio {
+    max-width: 600px;
+    margin: 15px auto;
+    color: #b3b3b3;
+    direction: ltr;
+    text-align: left;
+    font-size: 1em;
+}
+
+/* ======== 5. Projects Grid & Cards Styles (for index.html, kept for completeness) ======== */
+
+main h3 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-family: 'Montserrat', sans-serif;
+    /* Use Montserrat for section headings */
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 220px);
+    /* Adjusted width */
+    justify-content: left;
+    gap: 25px;
+}
+
+.project-card {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.project-thumbnail-wrapper {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #1a1a1a;
+}
+
+.project-thumbnail-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.project-info {
+    padding: 15px;
+    text-align: left;
+    direction: ltr;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.project-info h4 {
+    margin: 0 0 8px 0;
+    color: #bb86fc;
+    font-family: 'Montserrat', sans-serif;
+    /* Use Montserrat for project titles */
+}
+
+.project-info p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #b3b3b3;
+}
+
+/* ======== 6. Project Detail Page Styles (UPDATED) ======== */
+
+.project-detail-header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #333;
+    /* Subtle separator */
+}
+
+.project-detail-header h1 {
+    color: #bb86fc;
+    /* Project title color */
+    font-size: 3em;
+    /* Larger title */
+    margin-bottom: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    direction: ltr;
+}
+
+.project-detail-header p {
+    color: #b3b3b3;
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.1em;
+    direction: ltr;
+    text-align: center;
+    /* Center align for main description */
+}
+
+.project-detail-content {
+    padding: 20px 0;
+}
+
+.feature-spotlight {
+    background-color: #1e1e1e;
+    padding: 30px;
+    /* More padding for better spacing */
+    border-radius: 12px;
+    /* Slightly larger border-radius */
+    margin: 40px 0;
+    /* More margin between spotlights */
+    border: 1px solid #333;
+    direction: ltr;
+    text-align: left;
+    /* Align text within spotlight to left */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    /* Softer shadow */
+}
+
+.feature-spotlight h4 {
+    color: #03dac6;
+    font-size: 1.8em;
+    /* Larger feature title */
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+/* Styles for single images/videos (vertical layout) */
+.feature-spotlight>img,
+.feature-spotlight>video {
+    max-width: 320px;
+    border-radius: 8px;
+    margin-top: 25px;
+    border: 1px solid #444;
+    display: block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* NEW: Style for the main feature description before a gallery */
+.feature-description {
+    color: #b3b3b3;
+    font-size: 1em;
+    margin-bottom: 30px;
+    line-height: 1.7;
+}
+
+/* NEW: Styles for the horizontal media gallery */
+.feature-media-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.gallery-item {
+    flex: 1 1 300px;
+    /* Grow/shrink with a base width of 300px */
+    max-width: 350px;
+    /* Max-width to control size */
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.gallery-item .media-caption {
+    color: #c0c0c0;
+    font-size: 0.95em;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.feature-media-gallery .gallery-item img,
+.feature-media-gallery .gallery-item video {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid #444;
+    display: block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Style for the back to home link */
+.back-to-home-link {
+    text-align: center;
+    display: block;
+    margin-top: 60px;
+    padding: 12px 25px;
+    background-color: #03dac6;
+    color: #121212 !important;
+    border-radius: 6px;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 700;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.back-to-home-link:hover {
+    background-color: #03e6b7;
+    color: #000000 !important;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(3, 218, 198, 0.4);
+}
+
+/* ======== 7. Footer Styles (kept for completeness) ======== */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    font-size: 0.9em;
+    color: #888;
+}
+
+footer a {
+    direction: ltr;
+    display: inline-block;
+}
+
+/* --- NEW STYLES FOR TRUNCATED TEXT --- */
+
+.gallery-item .media-caption {
+    /* Set a fixed height based on approximately 3-4 lines of text */
+    max-height: 90px;
+    overflow: hidden;
+    position: relative;
+    /* Needed for advanced truncation if desired */
+    transition: max-height 0.3s ease-in-out;
+    /* Smooth expansion */
+}
+
+/* This class will be added by JavaScript to expand the text */
+.gallery-item .media-caption.expanded {
+    max-height: 500px;
+    /* A large value to ensure all text is visible */
+}
+
+/* Style for the "See More" button */
+.see-more-btn {
+    background: none;
+    border: none;
+    color: #03dac6;
+    /* Your theme's accent color */
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px 0;
+    margin-top: 8px;
+    /* Space between text and button */
+    display: none;
+    /* Initially hidden */
+    font-family: 'Montserrat', sans-serif;
+}

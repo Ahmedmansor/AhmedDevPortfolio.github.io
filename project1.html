@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details: Linker EG</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <template id="gallery-item-template">
+        <div class="gallery-item">
+            <p class="media-caption">
+            </p>
+            <button class="see-more-btn">See More</button>
+            <video autoplay loop muted playsinline>
+                <source src="" type="video/mp4"> Your browser does not support the video tag.
+            </video>
+        </div>
+    </template>
+
+
+    <div class="container">
+        <header class="project-detail-header">
+            <h1>Linker EG</h1>
+            <p>
+                Linker is an integrated platform for athletes, coaches, and sports enthusiasts to communicate,
+                showcase skills, and grow their sports careers. Whether you are looking for a trainer, want to train,
+                or promote your experience, Linker makes it easy in one place.
+            </p>
+        </header>
+
+        <main class="project-detail-content">
+
+            <div class="feature-spotlight">
+                <h4>✨ 1- Secure and Easy Login and Logout System</h4>
+                <p class="feature-description">
+                    The authentication process was designed to be seamless. Below are demonstrations of both a
+                    successful login and the clear error handling for incorrect data.
+                </p>
+                <div class="feature-media-gallery" id="login-gallery"></div>
+            </div>
+
+            <div class="feature-spotlight">
+                <h4>📝 2- User Registration with Robust Validation</h4>
+                <p class="feature-description">
+                    Our registration process is designed to be user-friendly while ensuring data integrity. It guides
+                    new users through essential steps, incorporating real-time validation for a smooth onboarding
+                    experience.
+                </p>
+                <div class="feature-media-gallery" id="registration-gallery"></div>
+            </div>
+
+        </main>
+
+        <a href="index.html" class="back-to-home-link">Back to Home</a>
+    </div>
+
+    <script>
+        // --- DATA FOR OUR "WIDGETS" ---
+
+        const loginGalleryData = [
+            {
+                videoSrc: 'assets/videos/linker-login-logout.mp4',
+                caption: '<strong>Login and Logout.</strong><br>A user can enter their credentials and log in and log out successfully.'
+            },
+            {
+                videoSrc: 'assets/videos/linker-login-error.mp4',
+                caption: '<strong>Error Handling: Invalid Credentials.</strong><br>The system provides immediate feedback for incorrect login attempts.'
+            }
+        ];
+
+        // Data for the Registration feature gallery
+        const registrationGalleryData = [
+            {
+                videoSrc: 'assets/videos/linker-register-success-part1.mp4',
+                caption: '<strong>Step 1: Account Creation & Phone Verification.</strong><br> Users securely enter their basic details (names, phone number, password), followed by an OTP for phone number confirmation.'
+            },
+            {
+                videoSrc: 'assets/videos/linker-register-success-part2.mp4',
+                caption: '<strong>Step 2: Profile Completion & Email Validation.</strong><br> After phone verification, users complete their profile with email, birth date, and gender.'
+            },
+            {
+                videoSrc: 'assets/videos/linker-register-phone-exists-error.mp4',
+                caption: '<strong>Error Handling: Existing Phone Number.</strong><br> The system prevents duplicate accounts by displaying an immediate error if a registered phone number is used.'
+            },
+            {
+                videoSrc: 'assets/videos/linker-register-email-exists-error.mp4',
+                caption: '<strong>Error Handling: Existing Email.</strong><br> The system efficiently detects and prevents duplicate accounts by displaying an immediate error if an already registered email is used.'
+            }
+        ];
+
+        // --- FUNCTION TO BUILD A GALLERY FROM DATA ---
+
+        function createGallery(containerId, data) {
+            const galleryContainer = document.getElementById(containerId);
+            const template = document.getElementById('gallery-item-template');
+
+            if (!galleryContainer || !template) return; // Exit if elements are not found
+
+            data.forEach(itemData => {
+                const clone = template.content.cloneNode(true);
+                clone.querySelector('.media-caption').innerHTML = itemData.caption;
+                clone.querySelector('video source').src = itemData.videoSrc;
+                galleryContainer.appendChild(clone);
+            });
+        }
+
+        // --- SCRIPT EXECUTION AFTER PAGE LOADS ---
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Build the galleries by calling our function for each data set
+            createGallery('login-gallery', loginGalleryData);
+            createGallery('registration-gallery', registrationGalleryData);
+
+            // Now, handle the "See More" logic for all the newly created items
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                const caption = item.querySelector('.media-caption');
+                const button = item.querySelector('.see-more-btn');
+
+                setTimeout(() => {
+                    if (caption.scrollHeight > caption.clientHeight) {
+                        button.style.display = 'block';
+                    }
+                }, 100);
+
+                button.addEventListener('click', () => {
+                    caption.classList.toggle('expanded');
+                    button.textContent = caption.classList.contains('expanded') ? 'See Less' : 'See More';
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

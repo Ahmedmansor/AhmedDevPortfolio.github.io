@@ -1,0 +1,5 @@
+# Ignore VS Code's local history extension files
+.history/
+
+# Ignore VS Code's workspace settings
+.vscode/

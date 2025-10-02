@@ -95,13 +95,50 @@
           </p>
           <div class="feature-media-gallery" id="search-filter-gallery"></div>
         </div>
+
+        <div class="feature-spotlight">
+          <h4>🚀 5- Full-Circle Application: From Player to Coach</h4>
+          <p class="feature-description">
+            This feature demonstrates the complete, asynchronous workflow for a
+            player to upgrade their account. It showcases a detailed application
+            process, review by a separate admin panel, and the final
+            transformation of the user's role and UI upon approval.
+          </p>
+          <div class="feature-media-gallery" id="become-coach-gallery"></div>
+        </div>
+
+        <div class="feature-spotlight">
+          <h4>🤝 6- Core Interaction: Session Creation & Enrollment</h4>
+          <p class="feature-description">
+            This feature demonstrates the app's primary function: enabling
+            coaches to offer training and allowing players to enroll. It
+            showcases the complete interaction loop, from creation to
+            enrollment, which is the heart of the Linker platform.
+          </p>
+          <div class="feature-media-gallery" id="session-gallery">
+            <div class="gallery-item">
+              <p class="media-caption">
+                <strong>State Synchronization:</strong><br />
+                Providing immediate confirmation for the coach, the session view
+                is dynamically updated the moment a player enrolls. This
+                real-time data handling ensures coaches always have an
+                up-to-date roster of participants.
+              </p>
+              <button class="see-more-btn">See More</button>
+              <img
+                src="assets/images/linker-players-Joined.jpg"
+                alt="Screenshot of the coach's view showing the enrolled player"
+              />
+            </div>
+          </div>
+        </div>
       </main>
 
       <a href="index.html" class="back-to-home-link">Back to Home</a>
     </div>
 
     <script>
-      // --- DATA FOR OUR "WIDGETS" ---
+      // --- DATA (All data arrays are present) ---
 
       const loginGalleryData = [
         {
@@ -115,7 +152,6 @@
             "<strong>Error Handling: Invalid Credentials.</strong><br>The system provides immediate feedback for incorrect login attempts.",
         },
       ];
-
       const registrationGalleryData = [
         {
           videoSrc: "assets/videos/linker-register-success-part1.mp4",
@@ -138,7 +174,6 @@
             "<strong>Error Handling: Existing Email.</strong><br> The system efficiently detects and prevents duplicate accounts by displaying an immediate error if an already registered email is used.",
         },
       ];
-
       const profilesGalleryData = [
         {
           videoSrc: "assets/videos/linker-guest-view-exploration.mp4",
@@ -156,25 +191,54 @@
             "<strong>The Coach Experience:</strong><br> Coaches can build a rich, detailed profile to showcase their expertise, including a bio, qualifications, and experience.",
         },
       ];
+      const searchFilterGalleryData = [
+        {
+          videoSrc: "assets/videos/linker-search-sort.mp4",
+          caption:
+            "<strong>Live Search & Sort:</strong><br>Users can instantly find coaches by name and sort the results by criteria like rating or experience.",
+        },
+        {
+          videoSrc: "assets/videos/linker-filtering.mp4",
+          caption:
+            "<strong>Multi-Layered Filtering:</strong><br>The experience can be refined by applying multiple filters like sport, location, and skill level to pinpoint the ideal coach.",
+        },
+        {
+          videoSrc: "assets/videos/linker-empty-state.mp4",
+          caption:
+            '<strong>Helpful "No Results" State:</strong><br>When a search yields no results, a clear and friendly empty state screen is displayed to guide the user.',
+        },
+      ];
+      const becomeCoachGalleryData = [
+        {
+          videoSrc: "assets/videos/linker-become-coach-application.mp4",
+          caption:
+            "<strong>Step 1: The Application.</strong><br>A seamless, multi-step form allows players to apply for a coaching role, including secure document uploads for verification.",
+        },
+        {
+          videoSrc: "assets/videos/linker-become-coach-admin-approval.mp4",
+          caption:
+            "<strong>Step 2: Admin Verification.</strong><br>A dedicated and secure admin panel is used to review applications and documents, ensuring the quality and safety of the coaching community.",
+        },
+        {
+          videoSrc: "assets/videos/linker-become-coach-transformation.mp4",
+          caption:
+            "<strong>Step 3: The Account Upgrade.</strong><br>Upon admin approval, the user's account is instantly upgraded. Their UI transforms, and they unlock powerful new coach-specific features.",
+        },
+      ];
+      const sessionGalleryData = [
+        {
+          videoSrc: "assets/videos/linker-session-creation.mp4",
+          caption:
+            "<strong>Step 1: Coach Creates a Session.</strong><br>Coaches can effortlessly offer their services by creating and publishing detailed training sessions for players to discover.",
+        },
+        {
+          videoSrc: "assets/videos/linker-session-enrollment.mp4",
+          caption:
+            "<strong>Step 2: Player Enrolls in the Session.</strong><br>Players can browse, view details, and seamlessly enroll in sessions, completing the core connection that the platform provides.",
+        },
+      ];
 
-    // --- UPDATED DATA FOR SEARCH & FILTER FEATURE ---
-const searchFilterGalleryData = [
-    {
-        videoSrc: 'assets/videos/linker-search-sort.mp4', // Recommended: Update video name
-        caption: '<strong>Live Search & Sort:</strong><br>Users can instantly find coaches by name and sort the results by criteria like rating or experience.'
-    },
-    {
-        videoSrc: 'assets/videos/linker-filtering.mp4',
-        caption: '<strong>Multi-Layered Filtering:</strong><br>The experience can be refined by applying multiple filters like sport, location, and skill level to pinpoint the ideal coach.'
-    },
-    {
-        videoSrc: 'assets/videos/linker-empty-state.mp4',
-        caption: '<strong>Helpful "No Results" State:</strong><br>When a search yields no results, a clear and friendly empty state screen is displayed to guide the user.'
-    }
-];
-
-      // --- FUNCTION TO BUILD A GALLERY FROM DATA ---
-
+      // --- FUNCTION TO BUILD A GALLERY ---
       function createGallery(containerId, data) {
         const galleryContainer = document.getElementById(containerId);
         const template = document.getElementById("gallery-item-template");
@@ -183,26 +247,33 @@ const searchFilterGalleryData = [
           const clone = template.content.cloneNode(true);
           clone.querySelector(".media-caption").innerHTML = itemData.caption;
           clone.querySelector("video source").src = itemData.videoSrc;
-          galleryContainer.appendChild(clone);
+          galleryContainer.prepend(clone);
         });
       }
 
-      // --- SCRIPT EXECUTION AFTER PAGE LOADS ---
-
+      // --- SCRIPT EXECUTION AFTER PAGE LOADS (WITH CORRECTED LOGIC) ---
       document.addEventListener("DOMContentLoaded", function () {
         createGallery("login-gallery", loginGalleryData);
         createGallery("registration-gallery", registrationGalleryData);
         createGallery("profiles-gallery", profilesGalleryData);
         createGallery("search-filter-gallery", searchFilterGalleryData);
+        createGallery("become-coach-gallery", becomeCoachGalleryData);
+        createGallery("session-gallery", sessionGalleryData);
 
         const CHARACTER_LIMIT = 110;
         const galleryItems = document.querySelectorAll(".gallery-item");
+
         galleryItems.forEach((item) => {
           const caption = item.querySelector(".media-caption");
           const button = item.querySelector(".see-more-btn");
+
+          if (!button) return; // Safely skip items without a button
+
           if (caption.textContent.length > CHARACTER_LIMIT) {
+            // Just make the button visible. The default state is truncated.
             button.style.visibility = "visible";
           }
+
           button.addEventListener("click", () => {
             caption.classList.toggle("expanded");
             button.textContent = caption.classList.contains("expanded")

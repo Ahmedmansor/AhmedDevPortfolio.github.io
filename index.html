@@ -1,54 +1,191 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n-key="indexPage.pageTitle">
+      Ahmed Mansour | Flutter Developer Portfolio
+    </title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>معرض أعمال [Ahmed Mohamed Mansour]</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-</head>
-
-<body>
+  <body id="index-page">
     <div class="container">
-        <header>
-            <img src="assets/images/profile-pic.jpg" alt="صورتك الشخصية" class="profile-pic">
-            <h1>Ahmed Mohamed Mansour</h1>
-            <h2>Flutter Mobile Developer</h2>
-            <p class="bio">
-                Flutter Developer skilled in building responsive, high-performance mobile applications for both iOS and
-                Android platforms. Proficient in Dart and Flutter, with a proven ability to deliver visually appealing
-                and feature-rich apps. Regularly leverage AI tools such as ChatGPT to accelerate code writing, automate
-                boilerplate generation, and enhance problem-solving efficiency. A strong team player with a commitment
-                to continuous learning and staying current with modern development trends.
-            </p>
-        </header>
+      <header class="portfolio-header">
+        <div class="language-switcher">
+          <button id="lang-en-btn">English</button>
+          <button id="lang-ar-btn">العربية</button>
+        </div>
+        <img
+          src="assets/images/profile-pic.jpg"
+          alt="Personal Photo"
+          class="profile-pic"
+        />
+        <h1 data-i18n-key="indexPage.name"></h1>
+        <h2 data-i18n-key="indexPage.jobTitle"></h2>
+        <p class="bio" data-i18n-key="indexPage.bio"></p>
+        <div class="social-links">
+          <a
+            href="https://github.com/Ahmedmansor"
+            target="_blank"
+            title="GitHub"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://linkedin.com/in/ahmed-mansour-343716209"
+            target="_blank"
+            title="LinkedIn"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <a href="mailto:ahmedmansour70000@gmail.com" title="Email"
+            ><i class="fas fa-envelope"></i
+          ></a>
+        </div>
+      </header>
 
-        <main>
-            <h3>My Projects</h3>
-            <div class="projects-grid">
-                <a href="project1.html" class="project-card">
-                    <div class="project-thumbnail-wrapper"> <img src="assets/images/project1-thumbnail.jpg"
-                            alt="صورة مصغرة للمشروع الأول">
-                    </div>
-                    <div class="project-info">
-                        <h4>[Linker EG]</h4>
-                        <p>Linker is an integrated platform for athletes, coaches, and sports enthusiasts to
-                            communicate, showcase skills, and grow their sports careers. Whether you are looking for a
-                            trainer, want to train, or promote your experience, Linker makes it easy in one place.
-                        </p>
-                    </div>
-                </a>
+      <main>
+        <h3 data-i18n-key="indexPage.projectsTitle"></h3>
+        <div class="projects-grid" id="projects-grid-container"></div>
+      </main>
 
-            </div>
-        </main>
-
-        <footer>
-            <p>للتواصل: <a href="ahmedmansour70000@gmail.com">ahmedmansour70000@gmail.com</a></p>
-        </footer>
+      <footer>
+        <p style="text-align: center">
+          <span data-i18n-key="indexPage.contactMe"></span>
+          <a href="mailto:ahmedmansour70000@gmail.com"
+            >ahmedmansour70000@gmail.com</a
+          >
+          &nbsp;|&nbsp;
+          <a
+            href="https://wa.me/201000872150"
+            target="_blank"
+            title="WhatsApp"
+            style="color: #25d366; font-weight: bold"
+          >
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+        </p>
+      </footer>
     </div>
-</body>
 
+    <script>
+      let translations = {};
+
+      // Main translation function
+      function translatePage() {
+        if (!translations || Object.keys(translations).length === 0) return;
+
+        const currentLang = localStorage.getItem("lang") || "en";
+        document.documentElement.lang = currentLang;
+        document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+
+        // Detect which page we are on
+        const pageId = document.body.id; // 'index-page' or 'project1-page'
+        let pageTranslations = {};
+
+        if (pageId === "index-page") {
+          pageTranslations = translations.indexPage || {};
+        } else if (pageId === "project1-page") {
+          pageTranslations = translations.project1Page || {};
+        }
+
+        // Translate all elements with data-i18n-key
+        document.querySelectorAll("[data-i18n-key]").forEach((element) => {
+          const key = element
+            .getAttribute("data-i18n-key")
+            .replace("indexPage.", "")
+            .replace("project1Page.", "");
+          const value = key
+            .split(".")
+            .reduce(
+              (obj, k) =>
+                obj && obj[k] !== undefined ? obj[k] : translations.common[key],
+              pageTranslations
+            );
+          if (value !== undefined) element.innerHTML = value;
+        });
+
+        // Call page-specific functions
+        if (pageId === "index-page" && pageTranslations.projectsData) {
+          createProjectsGrid(pageTranslations.projectsData);
+        } else if (pageId === "project1-page") {
+          // ... (logic for project1.html is in its own file)
+        }
+      }
+
+      // Function to load the single language file
+      function loadLanguage(lang) {
+        const oldScript = document.getElementById("lang-script");
+        if (oldScript) oldScript.remove();
+
+        const script = document.createElement("script");
+        script.id = "lang-script";
+        script.src = `lang/${lang}.js`;
+        script.onload = () => {
+          localStorage.setItem("lang", lang);
+          translatePage();
+        };
+        script.onerror = () =>
+          console.error(`Failed to load language file: ${script.src}`);
+        document.head.appendChild(script);
+      }
+
+      // Function to build the project cards grid
+      function createProjectsGrid(projects) {
+        const container = document.getElementById("projects-grid-container");
+        if (!container) return;
+        container.innerHTML = "";
+
+        projects.forEach((project) => {
+          const tagsHTML = project.tags
+            .map((tag) => `<span>${tag}</span>`)
+            .join("");
+          const cardHTML = `
+                    <a href="${project.link}" class="project-card">
+                        <div class="project-thumbnail-wrapper">
+                            <img src="${project.thumbnail}" alt="Thumbnail for ${project.title}">
+                        </div>
+                        <div class="project-info">
+                            <h4>${project.title}</h4>
+                            <p>${project.description}</p>
+                            <div class="tech-tags">${tagsHTML}</div>
+                            <span class="view-project-btn">${translations.indexPage.projectsData[0].viewProject}</span>
+                        </div>
+                    </a>
+                `;
+          container.innerHTML += cardHTML;
+        });
+      }
+
+      // Add event listeners and load initial language
+      function setActiveLangButton(lang) {
+        const enBtn = document.getElementById("lang-en-btn");
+        const arBtn = document.getElementById("lang-ar-btn");
+        enBtn.classList.toggle("active", lang === "en");
+        arBtn.classList.toggle("active", lang === "ar");
+      }
+
+      document.getElementById("lang-en-btn").addEventListener("click", () => {
+        setActiveLangButton("en");
+        loadLanguage("en");
+      });
+      document.getElementById("lang-ar-btn").addEventListener("click", () => {
+        setActiveLangButton("ar");
+        loadLanguage("ar");
+      });
+
+      // Set initial active button
+      setActiveLangButton(localStorage.getItem("lang") || "en");
+      loadLanguage(localStorage.getItem("lang") || "en");
+    </script>
+  </body>
 </html>

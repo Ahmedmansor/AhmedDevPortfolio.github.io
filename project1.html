@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title data-i18n-key="project1Page.pageTitle"></title>
     <link rel="stylesheet" href="style.css" />
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -46,7 +51,15 @@
             class="feature-description"
             data-i18n-key="project1Page.feature1Description"
           ></p>
-          <div class="feature-media-gallery" id="login-gallery"></div>
+          <!-- Swiper container for mobile, fallback to grid for desktop -->
+          <div
+            class="feature-media-gallery swiper-container"
+            id="login-gallery"
+          >
+            <div class="swiper-wrapper"></div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+          </div>
         </div>
         <div class="feature-spotlight" id="feature2">
           <h4 data-i18n-key="project1Page.feature2Title"></h4>
@@ -54,7 +67,13 @@
             class="feature-description"
             data-i18n-key="project1Page.feature2Description"
           ></p>
-          <div class="feature-media-gallery" id="registration-gallery"></div>
+          <div
+            class="feature-media-gallery swiper-container"
+            id="registration-gallery"
+          >
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
+          </div>
         </div>
         <div class="feature-spotlight" id="feature3">
           <h4 data-i18n-key="project1Page.feature3Title"></h4>
@@ -62,7 +81,13 @@
             class="feature-description"
             data-i18n-key="project1Page.feature3Description"
           ></p>
-          <div class="feature-media-gallery" id="profiles-gallery"></div>
+          <div
+            class="feature-media-gallery swiper-container"
+            id="profiles-gallery"
+          >
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
+          </div>
           <div class="side-by-side-container">
             <h5 data-i18n-key="project1Page.feature3ComparisonTitle"></h5>
             <p data-i18n-key="project1Page.feature3ComparisonDescription"></p>
@@ -78,7 +103,13 @@
             class="feature-description"
             data-i18n-key="project1Page.feature4Description"
           ></p>
-          <div class="feature-media-gallery" id="search-filter-gallery"></div>
+          <div
+            class="feature-media-gallery swiper-container"
+            id="search-filter-gallery"
+          >
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
+          </div>
         </div>
         <div class="feature-spotlight" id="feature5">
           <h4 data-i18n-key="project1Page.feature5Title"></h4>
@@ -86,7 +117,13 @@
             class="feature-description"
             data-i18n-key="project1Page.feature5Description"
           ></p>
-          <div class="feature-media-gallery" id="become-coach-gallery"></div>
+          <div
+            class="feature-media-gallery swiper-container"
+            id="become-coach-gallery"
+          >
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
+          </div>
         </div>
         <div class="feature-spotlight" id="feature6">
           <h4 data-i18n-key="project1Page.feature6Title"></h4>
@@ -94,21 +131,12 @@
             class="feature-description"
             data-i18n-key="project1Page.feature6Description"
           ></p>
-          <div class="feature-media-gallery" id="session-gallery">
-            <div class="gallery-item">
-              <p
-                class="media-caption"
-                data-i18n-key="project1Page.staticImageData.sessionSync.caption"
-              ></p>
-              <button
-                class="see-more-btn"
-                data-i18n-key="common.seeMore"
-              ></button>
-              <img
-                src="assets/images/linker-players-Joined.jpg"
-                alt="Screenshot of coach's view"
-              />
-            </div>
+          <div
+            class="feature-media-gallery swiper-container"
+            id="session-gallery"
+          >
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
           </div>
         </div>
       </main>
@@ -233,15 +261,15 @@
           setupFeatureNavLogic();
           document
             .querySelectorAll(".feature-media-gallery")
-            .forEach((gallery) => (gallery.innerHTML = ""));
-          const sessionGallery = document.getElementById("session-gallery");
-          if (sessionGallery) {
-            sessionGallery.innerHTML = `<div class="gallery-item">
-                        <p class="media-caption" data-i18n-key="project1Page.staticImageData.sessionSync.caption">${translations.project1Page.staticImageData.sessionSync.caption}</p>
-                        <button class="see-more-btn" data-i18n-key="common.seeMore">${translations.common.seeMore}</button>
-                        <img src="assets/images/linker-players-Joined.jpg" alt="Screenshot of the coach's view" />
-                    </div>`;
-          }
+            .forEach((gallery) => {
+              if (gallery.classList.contains("swiper-container")) {
+                const wrapper = gallery.querySelector(".swiper-wrapper");
+                if (wrapper) wrapper.innerHTML = "";
+              } else {
+                gallery.innerHTML = "";
+              }
+            });
+          // لا تضف فيديوهات يدوياً هنا، فقط استخدم sessionGalleryData من ملف الترجمة
 
           createGallery(
             "login-gallery",
@@ -291,10 +319,23 @@
         const galleryContainer = document.getElementById(containerId);
         if (!galleryContainer || !data) return;
         const CHARACTER_LIMIT = 110;
+        // If Swiper container (mobile), use swiper-wrapper
+        const isSwiper =
+          galleryContainer.classList.contains("swiper-container");
+        const wrapper = isSwiper
+          ? galleryContainer.querySelector(".swiper-wrapper")
+          : galleryContainer;
+        if (isSwiper && wrapper) wrapper.innerHTML = "";
+        if (!wrapper) {
+          // Defensive: don't error, just skip
+          return;
+        }
         data.forEach((itemData) => {
           // Create gallery-item div
           const itemDiv = document.createElement("div");
-          itemDiv.className = "gallery-item";
+          itemDiv.className = isSwiper
+            ? "gallery-item swiper-slide"
+            : "gallery-item";
 
           // Caption
           const captionP = document.createElement("p");
@@ -328,7 +369,7 @@
             video.innerHTML += "Your browser does not support the video tag.";
             itemDiv.appendChild(video);
           }
-          galleryContainer.appendChild(itemDiv);
+          wrapper.appendChild(itemDiv);
         });
       }
 
@@ -382,6 +423,33 @@
     </script>
     <style>
       .feature-nav {
+        /* Swiper overrides for mobile */
+        @media (max-width: 700px) {
+          .feature-media-gallery.swiper-container {
+            display: block;
+            padding-bottom: 40px;
+          }
+          .swiper-wrapper {
+            display: flex;
+          }
+          .swiper-slide {
+            flex-shrink: 0;
+            width: 90vw;
+            max-width: 350px;
+            margin: 0 auto;
+          }
+          .feature-media-gallery:not(.swiper-container) {
+            display: none !important;
+          }
+        }
+        @media (min-width: 701px) {
+          .feature-media-gallery.swiper-container {
+            display: none !important;
+          }
+          .feature-media-gallery:not(.swiper-container) {
+            display: flex;
+          }
+        }
         position: sticky;
         top: 0;
         z-index: 100;
@@ -455,5 +523,64 @@
         justify-content: flex-end;
       }
     </style>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      // Swiper initialization for all galleries on mobile only
+      const swiperIds = [
+        "login-gallery",
+        "registration-gallery",
+        "profiles-gallery",
+        "search-filter-gallery",
+        "become-coach-gallery",
+        "session-gallery",
+      ];
+      function initAllSwipersOnMobile() {
+        if (window.innerWidth <= 700) {
+          window.swipers = window.swipers || {};
+          swiperIds.forEach((id) => {
+            const el = document.getElementById(id);
+            if (
+              el &&
+              el.classList.contains("swiper-container") &&
+              !window.swipers[id]
+            ) {
+              window.swipers[id] = new Swiper(`#${id}.swiper-container`, {
+                slidesPerView: "auto",
+                spaceBetween: 16,
+                pagination: {
+                  el: `#${id} .swiper-pagination`,
+                  clickable: true,
+                },
+                navigation: {
+                  nextEl: `#${id} .swiper-button-next`,
+                  prevEl: `#${id} .swiper-button-prev`,
+                },
+                loop: false,
+                watchOverflow: true,
+              });
+            }
+          });
+        }
+      }
+      function destroyAllSwipers() {
+        if (window.swipers) {
+          Object.keys(window.swipers).forEach((id) => {
+            if (window.swipers[id]) {
+              window.swipers[id].destroy(true, true);
+              window.swipers[id] = null;
+            }
+          });
+        }
+      }
+      window.addEventListener("DOMContentLoaded", initAllSwipersOnMobile);
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 700) {
+          destroyAllSwipers();
+        } else {
+          initAllSwipersOnMobile();
+        }
+      });
+    </script>
   </body>
 </html>

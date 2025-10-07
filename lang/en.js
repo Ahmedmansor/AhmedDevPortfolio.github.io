@@ -174,6 +174,12 @@ translations = {
         caption:
           "<strong>Step 2: Player Enrolls in the Session.</strong><br>Players can browse, view details, and seamlessly enroll in sessions, completing the core connection that the platform provides.",
       },
+      {
+        videoSrc: "assets/videos/linker-players-Joined.mp4",
+        caption:
+          "<strong>State Synchronization:</strong><br>Providing immediate confirmation for the coach, the session view is dynamically updated the moment a player enrolls. This real-time data handling ensures coaches always have an up-to-date roster of participants.",
+    
+      },
     ],
     staticImageData: {
       sessionSync: {

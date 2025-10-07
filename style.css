@@ -1,3 +1,104 @@
+/* إخفاء نقاط مؤشر الصفحات (Swiper Pagination Dots) */
+.swiper-pagination {
+  display: none !important;
+}
+/* إضافة بادينج لداخل الفريم في الجاليري/السوایبر */
+.feature-media-gallery .swiper-wrapper {
+  padding-left: 24px;
+  padding-right: 24px;
+  box-sizing: border-box;
+}
+
+.swiper-wrapper > .swiper-slide:first-child,
+.gallery-item:first-child {
+  margin-left: 0;
+  padding-left: 0;
+}
+@media (max-width: 700px) {
+  .swiper-wrapper {
+    align-items: stretch;
+  }
+  .swiper-slide {
+    flex-shrink: 0;
+    width: 90vw;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 0 !important; /* Update the padding values as needed */
+  }
+  .swiper-slide video,
+  .swiper-slide img {
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 16px;
+  }
+}
+@media (max-width: 700px) {
+  .swiper-slide:first-child {
+    padding-left: 0;
+  }
+  .swiper-slide:last-child {
+    padding-right: 0 !important;
+  }
+  html[dir="rtl"] .swiper-slide:first-child {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  html[dir="rtl"] .swiper-slide:last-child {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  html[dir="rtl"] .swiper-wrapper {
+    direction: rtl;
+    justify-content: flex-end;
+  }
+  html[dir="ltr"] .swiper-wrapper {
+    direction: ltr;
+    justify-content: flex-start;
+  }
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+@media (max-width: 700px) {
+  .feature-media-gallery.swiper-container {
+    display: block;
+    padding-bottom: 40px;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    /* Center and stretch to viewport */
+  }
+  .swiper-wrapper {
+    display: flex;
+  }
+  .swiper-slide {
+    flex-shrink: 0;
+    width: 90vw;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 0; /* Update the padding values as needed */
+  }
+  .feature-media-gallery:not(.swiper-container) {
+    display: none !important;
+  }
+}
+@media (max-width: 700px) {
+  /* Existing code... */
+  .swiper-slide:first-child {
+    order: -1;
+  }
+}
+@media (max-width: 700px) {
+  /* Existing code... */
+  html[dir="rtl"] .swiper-slide:first-child {
+    order: 1;
+  }
+}
 /* Center feature3ComparisonTitle in English (LTR) */
 html[dir="ltr"]
   .side-by-side-container
@@ -366,7 +467,26 @@ main {
   font-family: "Montserrat", sans-serif;
   align-self: flex-start;
 }
+.feature-media-gallery .gallery-item {
+  flex: 1 0 auto;
+  max-width: 350px;
+  margin: 0 10px; /* Adjust the margins as needed */
+}
 
+.feature-media-gallery .gallery-item:first-child {
+  margin-left: 0;
+}
+
+.feature-media-gallery .gallery-item:last-child {
+  margin-right: 0;
+}
+
+.feature-media-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
 .feature-media-gallery .gallery-item video,
 .feature-media-gallery .gallery-item img {
   width: 100%;

@@ -20,7 +20,7 @@ translations = {
           "منصة متكاملة للرياضيين والمدربين للتواصل وعرض المهارات وتنمية حياتهم المهنية الرياضية.",
         thumbnail: "assets/images/project1-thumbnail.jpg",
         link: "project1.html",
-      tags: [
+        tags: [
           "Flutter",
           "Firebase",
           "Supabase",
@@ -172,6 +172,12 @@ translations = {
         videoSrc: "assets/videos/linker-session-enrollment.mp4",
         caption:
           "<strong>الخطوة ٢: اللاعب ينضم إلى الجلسة.</strong><br>يمكن للاعبين التصفح وعرض التفاصيل والانضمام بسلاسة إلى الجلسات، مما يكمل الاتصال الأساسي الذي توفره المنصة.",
+      },
+      {
+        videoSrc: "assets/videos/linker-players-Joined.mp4",
+        caption:
+          "<strong>مزامنة الحالة:</strong><br>من خلال توفير تأكيد فوري للمدرب، يتم تحديث عرض الجلسة ديناميكيًا لحظة تسجيل اللاعب. تضمن معالجة البيانات في الوقت الفعلي أن يكون لدى المدربين دائمًا قائمة محدثة من المشاركين.",
+    
       },
     ],
     staticImageData: {
